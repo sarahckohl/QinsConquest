@@ -7,9 +7,13 @@ public class Unit : MonoBehaviour, ISelectable, IDamageable<int>, IMoveable<Game
 
 	public int health;
 	public bool selected;
+	public bool isPlayerUnit;
+	public bool canMove;
 	
 	public int movement;
 	public int attackVal;
+	public int defenseVal;
+	public int unitCost;
 
 	// Use this for initialization
 	protected virtual void Start () {
@@ -46,9 +50,12 @@ public class Unit : MonoBehaviour, ISelectable, IDamageable<int>, IMoveable<Game
 	}
 	
 	public virtual void setInitialUnitValues() {
-		health = 10;
+		health = 1;
 		movement = 1;
 		attackVal = 2;
+		defenseVal = 2;
+		unitCost = 1;
+		canMove = true;
 	}
 	
 	public virtual void select() {
@@ -67,6 +74,9 @@ public class Unit : MonoBehaviour, ISelectable, IDamageable<int>, IMoveable<Game
 		transform.position = moveTo.transform.position + new Vector3(0.0f, 0.0f, transform.position.z);
 		onTile = moveTo;
 		onTile.GetComponent<HexTile>().moveOn (gameObject);
+		/*if(!playersTurn){
+			canMove = true;
+		}*/
 	}
 	
 	public virtual void attack(GameObject obj) {
@@ -77,7 +87,15 @@ public class Unit : MonoBehaviour, ISelectable, IDamageable<int>, IMoveable<Game
 	}
 	
 	public virtual void takeDamage(int damage) {
-		health -= Mathf.Abs(damage);
+		int dmg = damage;
+		while(dmg > 0 || health > 0){
+			if(defenseVal > 0){
+				--defenseVal;
+			}else{
+				--health;
+			}
+			--dmg;
+		}
 		if (health <= 0) {
 			onDeath ();
 		}
