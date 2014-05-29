@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Archer : Unit{
+public class Archer : PlayerUnit {
 	
 	// Use this for initialization
 	protected override void Start () {

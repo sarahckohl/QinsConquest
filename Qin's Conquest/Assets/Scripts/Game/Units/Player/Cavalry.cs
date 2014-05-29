@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Cavalry : Unit{
+public class Cavalry : PlayerUnit {
 	
 	// Use this for initialization
 	protected override void Start () {
