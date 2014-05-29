@@ -9,6 +9,7 @@ public class LevelReader : MonoBehaviour {
 	
 	public List<GameObject> tileType;	// Holds all possible tile types
 	public Field field;
+	public TurnSystem system;
 	
 	public List<GameObject> tiles = new List<GameObject>();
 	public List<GameObject> units = new List<GameObject>();
@@ -82,6 +83,19 @@ public class LevelReader : MonoBehaviour {
 						        Quaternion.identity) as GameObject);
 						newUnit.transform.position = new Vector3(newUnit.transform.position.x, newUnit.transform.position.y, -0.5f);
 						newUnit.GetComponent<Unit>().onTile = field.map[int.Parse(words[1])];
+						system.playerUnits.Add (newUnit);
+					}
+				}
+
+				if (line == "-Enemy Units") {
+					while ((line = reader.ReadLine()) != null && line != "-End Enemy Units") {
+						words = line.Split(',');	// Splits comma
+						GameObject newEnemyUnit = (Instantiate(unitsDictionary[words[0]],
+						                                  field.map[int.Parse(words[1])].transform.position,
+						                                  Quaternion.identity) as GameObject);
+						newEnemyUnit.transform.position = new Vector3(newEnemyUnit.transform.position.x, newEnemyUnit.transform.position.y, -0.5f);
+						newEnemyUnit.GetComponent<EnemyUnit>().onTile = field.map[int.Parse(words[1])];
+
 					}
 				}
 				
