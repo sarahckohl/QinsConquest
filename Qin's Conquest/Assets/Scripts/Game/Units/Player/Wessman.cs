@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Wessman : Unit{
+public class Wessman : PlayerUnit{
 
 	// Use this for initialization
 	protected override void Start () {

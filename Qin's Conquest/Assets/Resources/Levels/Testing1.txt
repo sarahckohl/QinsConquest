@@ -134,14 +134,11 @@ Hex Field,6.5,-2.25,0,115,-1,-1,-1,128,114
 -Start Units
 CavalryBLUE,58
 InfantryBLUE,59
+CavalryRED,65
+InfantryRED,66
 ArcherBLUE,72
 CavalryBLUE,73
 InfantryBLUE,74
--End Units
-
--Start Units
-CavalryRED,65
-InfantryRED,66
 ArcherRED,80
 CavalryRED,81
 InfantryRED,82

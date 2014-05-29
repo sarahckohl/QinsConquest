@@ -83,19 +83,12 @@ public class LevelReader : MonoBehaviour {
 						        Quaternion.identity) as GameObject);
 						newUnit.transform.position = new Vector3(newUnit.transform.position.x, newUnit.transform.position.y, -0.5f);
 						newUnit.GetComponent<Unit>().onTile = field.map[int.Parse(words[1])];
-						system.playerUnits.Add (newUnit);
-					}
-				}
-
-				if (line == "-Enemy Units") {
-					while ((line = reader.ReadLine()) != null && line != "-End Enemy Units") {
-						words = line.Split(',');	// Splits comma
-						GameObject newEnemyUnit = (Instantiate(unitsDictionary[words[0]],
-						                                  field.map[int.Parse(words[1])].transform.position,
-						                                  Quaternion.identity) as GameObject);
-						newEnemyUnit.transform.position = new Vector3(newEnemyUnit.transform.position.x, newEnemyUnit.transform.position.y, -0.5f);
-						newEnemyUnit.GetComponent<EnemyUnit>().onTile = field.map[int.Parse(words[1])];
-
+						if (newUnit.GetComponent<PlayerUnit>() != null)
+							system.playerUnits.Add (newUnit.GetComponent<PlayerUnit>());
+						else if(newUnit.GetComponent<EnemyUnit>() != null)
+							system.enemyUnits.Add (newUnit.GetComponent<EnemyUnit>());
+						else
+							Debug.Log ("Not a player or enemy unit");
 					}
 				}
 				
