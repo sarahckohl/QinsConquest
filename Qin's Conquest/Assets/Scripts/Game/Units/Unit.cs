@@ -7,6 +7,8 @@ public class Unit : MonoBehaviour, ISelectable, IDamageable<int>, IMoveable<Game
 
 	public int health;
 	public bool selected;
+	public bool alreadyMoved;
+	public bool isDead;
 	
 	public int movement;
 	public int attackVal;
@@ -49,16 +51,22 @@ public class Unit : MonoBehaviour, ISelectable, IDamageable<int>, IMoveable<Game
 		health = 10;
 		movement = 1;
 		attackVal = 2;
+		alreadyMoved = false;
+		isDead = false;
 	}
 	
 	public virtual void select() {
-		selected = true;
-		onTile.GetComponent<HexTile>().getMovementByRange(movement);
+		if (!alreadyMoved) {
+			selected = true;
+			onTile.GetComponent<HexTile> ().getMovementByRange (movement);
+		}
 	}
 	
 	public virtual void deSelect() {
-		selected = false;
-	 	onTile.GetComponent<HexTile>().cancelMovement(movement);
+		//if (!alreadyMoved) {
+			selected = false;
+			onTile.GetComponent<HexTile> ().cancelMovement (movement);
+		//}
 	}
 	
 	public virtual void move(GameObject moveTo) {
@@ -67,6 +75,7 @@ public class Unit : MonoBehaviour, ISelectable, IDamageable<int>, IMoveable<Game
 		transform.position = moveTo.transform.position + new Vector3(0.0f, 0.0f, transform.position.z);
 		onTile = moveTo;
 		onTile.GetComponent<HexTile>().moveOn (gameObject);
+		alreadyMoved = true;
 	}
 	
 	public virtual void attack(GameObject obj) {
@@ -88,6 +97,7 @@ public class Unit : MonoBehaviour, ISelectable, IDamageable<int>, IMoveable<Game
 	}
 	
 	public virtual void onDeath() {
+		isDead = true;
 		Destroy(gameObject);
 		onTile.GetComponent<HexTile>().moveOff();
 	}
