@@ -7,13 +7,13 @@ public class Unit : MonoBehaviour, ISelectable, IDamageable<int>, IMoveable<Game
 
 	public int health;
 	public bool selected;
-<<<<<<< HEAD
+
 	public bool alreadyMoved;
 	public bool isDead;
-=======
+
 	public bool isPlayerUnit;
 	public bool canMove;
->>>>>>> aede0a91c9409681db5aa1052e112c5bd0fb8e13
+
 	
 	public int movement;
 	public int attackVal;
@@ -58,14 +58,14 @@ public class Unit : MonoBehaviour, ISelectable, IDamageable<int>, IMoveable<Game
 		health = 1;
 		movement = 1;
 		attackVal = 2;
-<<<<<<< HEAD
+
 		alreadyMoved = false;
 		isDead = false;
-=======
+
 		defenseVal = 2;
 		unitCost = 1;
 		canMove = true;
->>>>>>> aede0a91c9409681db5aa1052e112c5bd0fb8e13
+
 	}
 	
 	public virtual void select() {
@@ -88,13 +88,13 @@ public class Unit : MonoBehaviour, ISelectable, IDamageable<int>, IMoveable<Game
 		transform.position = moveTo.transform.position + new Vector3(0.0f, 0.0f, transform.position.z);
 		onTile = moveTo;
 		onTile.GetComponent<HexTile>().moveOn (gameObject);
-<<<<<<< HEAD
+
 		alreadyMoved = true;
-=======
+
 		/*if(!playersTurn){
 			canMove = true;
 		}*/
->>>>>>> aede0a91c9409681db5aa1052e112c5bd0fb8e13
+
 	}
 	
 	public virtual void attack(GameObject obj) {
