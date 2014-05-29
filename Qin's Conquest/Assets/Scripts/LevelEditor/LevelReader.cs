@@ -86,6 +86,18 @@ public class LevelReader : MonoBehaviour {
 						system.playerUnits.Add (newUnit);
 					}
 				}
+
+				if (line == "-Enemy Units") {
+					while ((line = reader.ReadLine()) != null && line != "-End Enemy Units") {
+						words = line.Split(',');	// Splits comma
+						GameObject newEnemyUnit = (Instantiate(unitsDictionary[words[0]],
+						                                  field.map[int.Parse(words[1])].transform.position,
+						                                  Quaternion.identity) as GameObject);
+						newEnemyUnit.transform.position = new Vector3(newEnemyUnit.transform.position.x, newEnemyUnit.transform.position.y, -0.5f);
+						newEnemyUnit.GetComponent<EnemyUnit>().onTile = field.map[int.Parse(words[1])];
+
+					}
+				}
 				
 				if (line == "-Start Structures") {
 					while ((line = reader.ReadLine()) != null && line != "-End Structures") {
