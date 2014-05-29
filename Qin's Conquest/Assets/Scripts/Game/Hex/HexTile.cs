@@ -37,10 +37,11 @@ public class HexTile : MonoBehaviour {
 			
 			foreach (int nei in neighbors) {
 				if (nei == -1) continue;
+				if (field.map[nei].GetComponent<BlankTile>() != null) continue;
 				temp = field.map[nei].GetComponent<HexTile>();
 				if (!temp.taken) {
 					temp.switchNeighborsOn(step);
-				} else if (temp.takenBy.tag != "Player") {
+				} else if (temp.name != "Hex Blank" && temp.takenBy.tag != "Player") {
 					temp.enemyOnTile();
 				}
 			}
@@ -51,6 +52,7 @@ public class HexTile : MonoBehaviour {
 		if (step > 0) {
 			foreach (int nei in neighbors) {
 				if (nei == -1) continue;
+				if (field.map[nei].GetComponent<BlankTile>() != null) continue;
 				field.map[nei].GetComponent<HexTile>().switchNeighborsOff(step);
 			}
 		}
@@ -72,6 +74,7 @@ public class HexTile : MonoBehaviour {
 			
 			foreach (int nei in neighbors) {
 				if (nei == -1) continue;
+				if (field.map[nei].GetComponent<BlankTile>() != null) continue;
 				temp = field.map[nei].GetComponent<HexTile>();
 				if (!temp.taken) {
 					temp.switchNeighborsOn(step);
@@ -90,6 +93,7 @@ public class HexTile : MonoBehaviour {
 		if (step > 0) {
 			foreach (int nei in neighbors) {
 				if (nei == -1) continue;
+				if (field.map[nei].GetComponent<BlankTile>() != null) continue;
 				field.map[nei].GetComponent<HexTile>().switchNeighborsOff(step);
 			}
 		}
