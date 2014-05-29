@@ -9,6 +9,7 @@ public class LevelReader : MonoBehaviour {
 	
 	public List<GameObject> tileType;	// Holds all possible tile types
 	public Field field;
+	public TurnSystem system;
 	
 	public List<GameObject> tiles = new List<GameObject>();
 	public List<GameObject> units = new List<GameObject>();
@@ -82,6 +83,7 @@ public class LevelReader : MonoBehaviour {
 						        Quaternion.identity) as GameObject);
 						newUnit.transform.position = new Vector3(newUnit.transform.position.x, newUnit.transform.position.y, -0.5f);
 						newUnit.GetComponent<Unit>().onTile = field.map[int.Parse(words[1])];
+						system.playerUnits.Add (newUnit);
 					}
 				}
 				
