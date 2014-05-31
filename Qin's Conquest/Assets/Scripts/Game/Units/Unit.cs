@@ -61,9 +61,10 @@ public class Unit : MonoBehaviour, ISelectable, IDamageable<int>, IMoveable<Game
 	}
 	
 	public virtual void attack(GameObject obj) {
-		((IDamageable<int>)obj.GetComponent(typeof(IDamageable<int>))).takeDamage(attackVal);
-	}
-	
+				((IDamageable<int>)obj.GetComponent (typeof(IDamageable<int>))).takeDamage (attackVal);
+				alreadyMoved = true;
+		}
+
 	public virtual void specialAttack(GameObject[] obj) {
 	}
 	
