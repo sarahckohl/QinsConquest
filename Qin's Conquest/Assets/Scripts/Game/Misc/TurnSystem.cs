@@ -19,6 +19,7 @@ public class TurnSystem : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		//This was a check for Hex ID implementation
 		/*
 		if (!temp) {
 			foreach (GameObject h in gameField.map) {
@@ -27,36 +28,38 @@ public class TurnSystem : MonoBehaviour {
 			}
 			temp = true;
 		}
-	
-		int count = 0;
-		int activePlayers = 0;
-		foreach (GameObject player in playerUnits) {
-			if(!player.GetComponent<Unit>().isDead) {
-				activePlayers++;
-				if(player.GetComponent<Unit>().alreadyMoved) {
-					count++;
-				}
-			}
-			//Checks if all playable units have moved yet
-		}
-		//Debug.Log ("active :" + activePlayers +" count : " + count);
 		*/
 		if (turnEnd) {
 			turnCount += 1;
 			turnEnd = false;
-			Debug.Log ("Turn : " + turnCount);
+			//EnemyTargetModule is a workaround for getting a Player that is within an enemy unit's range
+			//Since Hex Tiles are not saved between calls. There is no gameObject for this; just a class found is Misc folder
+
+			EnemyTargetModule.foundTarget = false;
+			EnemyTargetModule.targetID = -1;
+			EnemyTargetModule.stopID = -1;
+
+		//	Debug.Log ("Turn : " + turnCount);
 
 			//Testing something out
-			Debug.Log (enemyUnits.Count);
-			//EnemyUnit temp = enemyUnits[1];
+			//Debug.Log (enemyUnits.Count);
+			EnemyUnit temp = enemyUnits[0];
+			//Debug.Log ("Enemy ID: " + temp.onTile.GetComponent <HexTile>().getAttackRangeEnemy(temp.attackRange));
+			temp.onTile.GetComponent <HexTile>().getAttackRangeEnemy(temp.attackRange);
+			temp.onTile.GetComponent<HexTile>().cancelMovement(temp.attackRange);
+
+			Debug.Log ("Boolean result: " + EnemyTargetModule.foundTarget);
+			Debug.Log ("Target Int result: " + EnemyTargetModule.targetID);
+			Debug.Log ("enemy stop Int result: " + EnemyTargetModule.stopID);
+
 
 			//temp.onTile.GetComponent <HexTile>().getAttackRangeEnemy(temp.attackRange);
 		
 
 			//Enemy Movement goes here
 			foreach(EnemyUnit enemy in enemyUnits) {
-				enemy.onTile.GetComponent <HexTile>().getAttackRangeEnemy(enemy.attackRange);
-				enemy.onTile.GetComponent<HexTile>().cancelMovement(enemy.attackRange);
+				//enemy.onTile.GetComponent <HexTile>().getAttackRangeEnemy(enemy.attackRange);
+				//enemy.onTile.GetComponent<HexTile>().cancelMovement(enemy.attackRange);
 			}
 
 			//Theoretically, the following should run only after the enemy units have already moved

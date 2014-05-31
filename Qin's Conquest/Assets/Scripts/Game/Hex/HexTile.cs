@@ -5,9 +5,11 @@ using System.Collections.Generic;
 public class HexTile : MonoBehaviour {
 
 	public bool taken = false;
+
 	public Field field;
 	public int iD;
-	
+
+
 	// public List<GameObject> neighbors = new List<GameObject>();
 	public List<int> neighbors = new List<int>();
 	
@@ -50,20 +52,29 @@ public class HexTile : MonoBehaviour {
 	}
 
 	public void getAttackRangeEnemy(int step) {
-		if (step > 0) {
-			HexTile temp;
+		if (!EnemyTargetModule.foundTarget) {
+
+			if (step > 0) {
+				HexTile temp;
 			
-			foreach (int nei in neighbors) {
-				if (nei == -1) continue;
-				if (field.map[nei].GetComponent<BlankTile>() != null) continue;
-				temp = field.map[nei].GetComponent<HexTile>();
-				if (!temp.taken) {
-					temp.switchNeighborsOnEnemy(step);
-				} else if (temp.name != "Hex Blank" && temp.takenBy.tag == "Player") {
-					temp.enemyOnTile();
+				foreach (int nei in neighbors) {
+					if (nei == -1)
+						continue;
+						if (field.map [nei].GetComponent<BlankTile> () != null)
+							continue;
+							temp = field.map [nei].GetComponent<HexTile> ();
+						if (!temp.taken) {
+							temp.switchNeighborsOnEnemy (step);
+						} else if (temp.name != "Hex Blank" && temp.takenBy.tag == "Player") {
+							temp.enemyOnTile ();
+							EnemyTargetModule.targetID = temp.iD;
+						EnemyTargetModule.stopID = iD;
+							EnemyTargetModule.foundTarget = true;
+						}
 				}
 			}
 		}
+
 	}
 	
 	public void cancelMovement(int step) {
@@ -98,6 +109,7 @@ public class HexTile : MonoBehaviour {
 					temp.switchNeighborsOn(step);
 				} else if (temp.takenBy.tag != "Player") {
 					temp.enemyOnTile();
+
 				}
 			}
 		}
@@ -105,25 +117,33 @@ public class HexTile : MonoBehaviour {
 
 	
 	protected virtual void switchNeighborsOnEnemy(int step) {
-		inRange = true;
-		step -= moveDecrement;
+		if (!EnemyTargetModule.foundTarget) {
+
+			inRange = true;
+			step -= moveDecrement;
 		
-		GetComponent<SpriteRenderer>().color = Color.yellow;
+			GetComponent<SpriteRenderer> ().color = Color.yellow;
 		
-		if (step > 0) {
-			HexTile temp;
-			
-			foreach (int nei in neighbors) {
-				if (nei == -1) continue;
-				if (field.map[nei].GetComponent<BlankTile>() != null) continue;
-				temp = field.map[nei].GetComponent<HexTile>();
-				if (!temp.taken || temp.takenBy.tag == "Enemy") {
-					temp.switchNeighborsOnEnemy(step);
-				} else if (temp.takenBy.tag == "Player") {
-					temp.enemyOnTile();
+			if (step > 0) {
+				HexTile temp;
+				foreach (int nei in neighbors) {
+					if (nei == -1)
+						continue;
+						if (field.map [nei].GetComponent<BlankTile> () != null)
+							continue;
+						temp = field.map [nei].GetComponent<HexTile> ();
+						if (!temp.taken) {
+							temp.switchNeighborsOnEnemy (step);
+							} else if (temp.takenBy.tag == "Player") {
+							temp.enemyOnTile ();
+							EnemyTargetModule.targetID = temp.iD;
+						EnemyTargetModule.stopID = iD;
+							EnemyTargetModule.foundTarget = true;
+						}
 				}
 			}
 		}
+
 	}
 	
 	protected virtual void switchNeighborsOff(int step) {

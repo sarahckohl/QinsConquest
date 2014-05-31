@@ -3,6 +3,7 @@ using System.Collections;
 
 public class EnemyUnit : Unit {
 	public int attackRange;
+	public bool detectedPlayer = false;
 
 	protected override void Start () {
 		base.Start ();
