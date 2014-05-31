@@ -58,6 +58,7 @@ public class LevelReader : MonoBehaviour {
 		using (StringReader reader = new StringReader(text.text)) {
 			string line;
 			string[] words;
+			int tempInt = 0;
 			while ((line = reader.ReadLine()) != null) {
 				if (line == "-Start Tiles") {
 					while ((line = reader.ReadLine()) != null && line != "-End Tiles") {
@@ -66,6 +67,8 @@ public class LevelReader : MonoBehaviour {
 								new Vector3(float.Parse(words[1]), float.Parse(words[2]), float.Parse(words[3])),
 						        Quaternion.identity) as GameObject);
 						field.map[field.map.Count - 1].GetComponent<HexTile>().field = field;
+						field.map[field.map.Count - 1].GetComponent<HexTile>().iD = tempInt;
+						tempInt++;
 						for (int x = 4; x < words.Length; x++) {
 							// Adds in the neightbor data
 							field.map[field.map.Count - 1].GetComponent<HexTile>().neighbors.Add(int.Parse(words[x]));

@@ -9,6 +9,7 @@ public class TurnSystem : MonoBehaviour {
 	public List<EnemyUnit> enemyUnits = new List<EnemyUnit>();
 	public int turnCount;
 	public bool turnEnd;
+	public bool temp = false;
 
 	// Use this for initialization
 	void Start () {
@@ -18,7 +19,15 @@ public class TurnSystem : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	/*
+		/*
+		if (!temp) {
+			foreach (GameObject h in gameField.map) {
+				int tempI = h.GetComponent<HexTile> ().iD;
+				Debug.Log (tempI);
+			}
+			temp = true;
+		}
+	
 		int count = 0;
 		int activePlayers = 0;
 		foreach (GameObject player in playerUnits) {
@@ -36,6 +45,19 @@ public class TurnSystem : MonoBehaviour {
 			turnCount += 1;
 			turnEnd = false;
 			Debug.Log ("Turn : " + turnCount);
+
+			//Testing something out
+			Debug.Log (enemyUnits.Count);
+			//EnemyUnit temp = enemyUnits[1];
+
+			//temp.onTile.GetComponent <HexTile>().getAttackRangeEnemy(temp.attackRange);
+		
+
+			//Enemy Movement goes here
+			foreach(EnemyUnit enemy in enemyUnits) {
+				enemy.onTile.GetComponent <HexTile>().getAttackRangeEnemy(enemy.attackRange);
+				enemy.onTile.GetComponent<HexTile>().cancelMovement(enemy.attackRange);
+			}
 
 			//Theoretically, the following should run only after the enemy units have already moved
 			foreach (PlayerUnit player in playerUnits) {
