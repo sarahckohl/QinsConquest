@@ -17,6 +17,7 @@ public class EnemyInfantry : EnemyUnit{
 		health = 1;
 		movement = 2;
 		attackVal = 2;
+		attackRange = movement + 1;
 		defenseVal = 2;
 		unitCost = 1;
 	}

@@ -17,6 +17,7 @@ public class EnemyArcher : EnemyUnit{
 		health = 1;
 		movement = 2;
 		attackVal = 1;
+		attackRange = movement + 1;
 		defenseVal = 3;
 		unitCost = 1;
 	}
