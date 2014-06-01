@@ -53,10 +53,7 @@ public class EnemyUnit : Unit {
 	public override void onDeath() {
 		base.onDeath();
 	}
-
-	public void getAttackbyRange() {
-
-	}
+	
 }
 
 

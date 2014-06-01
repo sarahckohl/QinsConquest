@@ -72,6 +72,7 @@ public class TurnSystem : MonoBehaviour {
 
 			//Enemy Movement goes here
 			foreach(EnemyUnit enemy in enemyUnits) {
+				if(!enemy.isDead) {
 				EnemyTargetModule.foundTarget = false;
 				EnemyTargetModule.targetID = -1;
 				EnemyTargetModule.stopID = -1;
@@ -80,6 +81,7 @@ public class TurnSystem : MonoBehaviour {
 					enemy.move (gameField.map[EnemyTargetModule.stopID]);
 				} else {
 					enemy.onTile.GetComponent<HexTile>().cancelMovement (enemy.attackRange);
+				}
 				}
 			}
 

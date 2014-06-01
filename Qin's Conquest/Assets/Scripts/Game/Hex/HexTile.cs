@@ -88,6 +88,7 @@ public class HexTile : MonoBehaviour {
 		}
 	}
 
+	//What is this function for?
 	protected void lineTiles(HexTile to){
 
 
