@@ -103,6 +103,7 @@ public class LevelReader : MonoBehaviour {
 						                                  Quaternion.identity) as GameObject);
 						newStructure.transform.position = new Vector3(newStructure.transform.position.x, newStructure.transform.position.y, -0.5f);
 						newStructure.GetComponent<Structure>().onTile = field.map[int.Parse(words[1])];
+						system.bases.Add (newStructure.GetComponent<Village>());
 					}
 				}
 			}
