@@ -87,6 +87,13 @@ public class HexTile : MonoBehaviour {
 			}
 		}
 	}
+
+	protected void lineTiles(HexTile to){
+
+
+	
+	
+	}
 	
 	protected virtual void enemyOnTile() {
 		inRange = true;
