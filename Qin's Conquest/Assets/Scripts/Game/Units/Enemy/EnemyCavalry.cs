@@ -18,7 +18,7 @@ public class EnemyCavalry : EnemyUnit{
 		movement = 4;
 		attackVal = 3;
 		attackRange = movement + 1;
-		defenseVal = 2;
+		defenseVal = 1;
 		unitCost = 3;
 	}
 	
