@@ -7,11 +7,13 @@ public class Structure : MonoBehaviour, ISelectable, IDamageable<int> {
 
 	public int health;
 	public bool selected;
+	public bool isDestroyed;
 
 	// Use this for initialization
 	protected virtual void Start () {
 		setInitialStructureValues();
 		onTile.GetComponent<HexTile>().moveOn (gameObject);
+		isDestroyed = false;
 	}
 	
 	public virtual void setInitialStructureValues() {
@@ -39,6 +41,7 @@ public class Structure : MonoBehaviour, ISelectable, IDamageable<int> {
 	}
 	
 	public virtual void onDeath() {
+		isDestroyed = true;
 		Destroy(gameObject);
 		onTile.GetComponent<HexTile>().moveOff();
 	}

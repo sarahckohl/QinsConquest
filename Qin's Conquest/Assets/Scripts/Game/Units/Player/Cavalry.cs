@@ -17,7 +17,7 @@ public class Cavalry : PlayerUnit {
 		health = 1;
 		movement = 4;
 		attackVal = 3;
-		defenseVal = 2;
+		defenseVal = 1;
 		unitCost = 3;
 	}
 	

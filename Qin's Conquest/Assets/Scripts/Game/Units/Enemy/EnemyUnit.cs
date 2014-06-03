@@ -37,7 +37,12 @@ public class EnemyUnit : Unit {
 	//Idea of Enemy AI Movement is to move whenever the player unit gets within its attack, not movement, range
 	public override void move(GameObject moveTo) {
 		// AI commands go here
-
+		base.move (moveTo);
+		onTile.GetComponent<HexTile>().cancelMovement(attackRange);
+		onTile.GetComponent<HexTile>().moveOff ();
+		transform.position = moveTo.transform.position + new Vector3(0.0f, 0.0f, transform.position.z);
+		onTile = moveTo;
+		onTile.GetComponent<HexTile>().moveOn (gameObject);
 	}
 	
 	public override void attack(GameObject obj) {
@@ -48,10 +53,7 @@ public class EnemyUnit : Unit {
 	public override void onDeath() {
 		base.onDeath();
 	}
-
-	public void getAttackbyRange() {
-
-	}
+	
 }
 
 

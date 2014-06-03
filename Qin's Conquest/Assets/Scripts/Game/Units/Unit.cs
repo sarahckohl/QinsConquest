@@ -83,7 +83,7 @@ public class Unit : MonoBehaviour, ISelectable, IDamageable<int>, IMoveable<Game
 	
 	public virtual void takeDamage(int damage) {
 		int dmg = damage;
-		while(dmg > 0 || health > 0){
+		while(dmg > 0){
 			if(defenseVal > 0){
 				--defenseVal;
 			}else{
@@ -91,10 +91,13 @@ public class Unit : MonoBehaviour, ISelectable, IDamageable<int>, IMoveable<Game
 			}
 			--dmg;
 		}
+
+		Debug.Log ("Damage");
+
 		if (health <= 0) {
 			onDeath ();
+			Debug.Log ("Dead");
 		}
-		Debug.Log ("Damage");
 	}
 	
 	public virtual void healDamage(int heal) {
