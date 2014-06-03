@@ -58,6 +58,19 @@ public class Unit : MonoBehaviour, ISelectable, IDamageable<int>, IMoveable<Game
 		onTile.GetComponent<HexTile>().moveOn (gameObject);
 
 		alreadyMoved = true; */
+
+
+		//Code to test lineTiles on unit movement
+		/*HexTile from = this.onTile.GetComponent<HexTile> ();
+		HexTile to = moveTo.GetComponent<HexTile> ();
+
+		HexTile[] check = from.lineTiles (to);
+
+		foreach (HexTile thing in check)
+		{
+			print (thing);
+		}*/
+
 	}
 	
 	public virtual void attack(GameObject obj) {
