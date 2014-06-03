@@ -58,6 +58,7 @@ public class HexTile : MonoBehaviour {
 		}
 	}
 
+	//Enemy unit function. Should not use for Players
 	public void getAttackRangeEnemy(int step) {
 		if (!EnemyTargetModule.foundTarget) {
 
@@ -93,9 +94,9 @@ public class HexTile : MonoBehaviour {
 			}
 		}
 	}
-
+	
+	//What is this function for?
 	public HexTile[] lineTiles(HexTile to){
-		
 
 		HexTile[] inLine = new HexTile[1];
 		HexTile currentTile = gameObject.GetComponent<HexTile>(); //probably needs to be gameobject, with that script to object converter jasmine found
@@ -296,7 +297,7 @@ public class HexTile : MonoBehaviour {
 		}
 	}
 
-	
+	//EnemyUnit function. Should not use for Players
 	protected virtual void switchNeighborsOnEnemy(int step) {
 		if (!EnemyTargetModule.foundTarget) {
 
@@ -318,7 +319,7 @@ public class HexTile : MonoBehaviour {
 							} else if (temp.takenBy.tag == "Player") {
 							temp.enemyOnTile ();
 							EnemyTargetModule.targetID = temp.iD;
-						EnemyTargetModule.stopID = iD;
+							EnemyTargetModule.stopID = iD;
 							EnemyTargetModule.foundTarget = true;
 						}
 				}
