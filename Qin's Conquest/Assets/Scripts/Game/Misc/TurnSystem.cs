@@ -88,6 +88,7 @@ public class TurnSystem : MonoBehaviour {
 			//Theoretically, the following should run only after the enemy units have already moved
 			foreach (PlayerUnit player in playerUnits) {
 				player.alreadyMoved = false;
+				player.renderer.material.color = player.originalColor;
 			}
 	}
 }
