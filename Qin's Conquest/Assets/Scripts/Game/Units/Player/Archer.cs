@@ -16,6 +16,7 @@ public class Archer : PlayerUnit {
 	public override void setInitialUnitValues() {
 		health = 1;
 		movement = 2;
+		attackRange = 3;
 		attackVal = 1;
 		defenseVal = 3;
 		unitCost = 1;

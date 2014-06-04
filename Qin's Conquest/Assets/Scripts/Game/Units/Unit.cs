@@ -12,6 +12,7 @@ public class Unit : MonoBehaviour, ISelectable, IDamageable<int>, IMoveable<Game
 	public bool isDead;
 
 	public int movement;
+	public int attackRange;
 	public int attackVal;
 	public int defenseVal;
 	public int unitCost;
@@ -30,6 +31,7 @@ public class Unit : MonoBehaviour, ISelectable, IDamageable<int>, IMoveable<Game
 	public virtual void setInitialUnitValues() {
 		health = 1;
 		movement = 1;
+		attackRange = 1;
 		attackVal = 2;
 
 		alreadyMoved = false;
@@ -49,28 +51,6 @@ public class Unit : MonoBehaviour, ISelectable, IDamageable<int>, IMoveable<Game
 	}
 	
 	public virtual void move(GameObject moveTo) {
-		// Stuff
-		/*
-		onTile.GetComponent<HexTile>().cancelMovement(movement);
-		onTile.GetComponent<HexTile>().moveOff ();
-		transform.position = moveTo.transform.position + new Vector3(0.0f, 0.0f, transform.position.z);
-		onTile = moveTo;
-		onTile.GetComponent<HexTile>().moveOn (gameObject);
-
-		alreadyMoved = true; */
-
-
-		//Code to test lineTiles on unit movement
-		/*HexTile from = this.onTile.GetComponent<HexTile> ();
-		HexTile to = moveTo.GetComponent<HexTile> ();
-
-		HexTile[] check = from.lineTiles (to);
-
-		foreach (HexTile thing in check)
-		{
-			print (thing);
-		}*/
-
 	}
 	
 	public virtual void attack(GameObject obj) {
@@ -92,11 +72,8 @@ public class Unit : MonoBehaviour, ISelectable, IDamageable<int>, IMoveable<Game
 			--dmg;
 		}
 
-		Debug.Log ("Damage");
-
 		if (health <= 0) {
 			onDeath ();
-			Debug.Log ("Dead");
 		}
 	}
 	
