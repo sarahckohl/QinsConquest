@@ -142,16 +142,16 @@ InfantryRED,51
 InfantryRED,63
 ArcherRED,74
 InfantryRED,90
-InfantryBLUE,97
-InfantryBLUE,98
-InfantryBLUE,99
-InfantryBLUE,111
-CavalryBLUE,114
+0_Placement Slot,97
+0_Placement Slot,98
+0_Placement Slot,99
+0_Placement Slot,111
+0_Placement Slot,114
 CavalryRED,117
 InfantryRED,118
-CavalryBLUE,125
-ArcherBLUE,126
-ArcherBLUE,128
+0_Placement Slot,125
+0_Placement Slot,126
+0_Placement Slot,128
 -End Units
 
 -Start Structures
