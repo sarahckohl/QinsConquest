@@ -132,16 +132,16 @@ Hex Blank,6.5,-2.25,0,115,-1,-1,-1,128,114
 -End Tiles
 
 -Start Units
-CavalryBLUE,16
-CavalryBLUE,17
+0_Placement Slot,16
+0_Placement Slot,17
 ArcherRED,24
 CavalryRED,25
-ArcherBLUE,30
-InfantryBLUE,31
-ArcherBLUE,32
+0_Placement Slot,30
+0_Placement Slot,31
+0_Placement Slot,32
 ArcherRED,39
-InfantryBLUE,45
-InfantryBLUE,46
+0_Placement Slot,45
+0_Placement Slot,46
 CavalryRED,53
 InfantryRED,66
 InfantryRED,95
