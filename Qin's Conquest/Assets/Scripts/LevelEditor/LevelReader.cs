@@ -27,16 +27,6 @@ public class LevelReader : MonoBehaviour {
 		createDictionary();
 		readFile();
 	}
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 	
 	void createDictionary() {
 		foreach (GameObject tile in tiles) {
@@ -85,13 +75,16 @@ public class LevelReader : MonoBehaviour {
 					 			field.map[int.Parse(words[1])].transform.position,
 						        Quaternion.identity) as GameObject);
 						newUnit.transform.position = new Vector3(newUnit.transform.position.x, newUnit.transform.position.y, -0.5f);
-						newUnit.GetComponent<Unit>().onTile = field.map[int.Parse(words[1])];
+						if (newUnit.GetComponent<Unit>() != null) 
+							newUnit.GetComponent<Unit>().onTile = field.map[int.Parse(words[1])];
+						if (newUnit.GetComponent<Deployment>() != null) {
+							newUnit.GetComponent<Deployment>().onTile = field.map[int.Parse(words[1])];
+							newUnit.GetComponent<Deployment>().system = system;
+						}
 						if (newUnit.GetComponent<PlayerUnit>() != null)
 							system.playerUnits.Add (newUnit.GetComponent<PlayerUnit>());
 						else if(newUnit.GetComponent<EnemyUnit>() != null)
 							system.enemyUnits.Add (newUnit.GetComponent<EnemyUnit>());
-						else
-							Debug.Log ("Not a player or enemy unit");
 					}
 				}
 				
