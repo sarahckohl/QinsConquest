@@ -16,7 +16,8 @@ public class PlayerController : MonoBehaviour {
 			RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 			if (hit.collider != null) {
 				if (selectedUnit != null) {
-					if (selectedUnit.GetComponent<PlayerUnit>() != null && !selectedUnit.GetComponent<PlayerUnit>().alreadyMoved) {
+					if (selectedUnit.GetComponent<PlayerUnit>() != null && (!selectedUnit.GetComponent<PlayerUnit>().alreadyMoved ||
+					    	!selectedUnit.GetComponent<PlayerUnit>().hasAttacked)) {
 						playerUnitCommands (hit.collider.gameObject);
 					}
 					deSelectUnit ();
@@ -52,7 +53,7 @@ public class PlayerController : MonoBehaviour {
 	
 	void selectUnit(GameObject select) {
 		selectedUnit = select;
-		(selectedUnit.GetComponent(typeof(ISelectable)) as ISelectable).select ();
+		(selectedUnit.GetComponent(typeof(ISelectable)) as ISelectable).select ();		
 	}
 	
 	void deSelectUnit() {

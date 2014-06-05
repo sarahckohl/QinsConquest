@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class EnemyUnit : Unit {
-	public int attackRange;
+	public int aggroRadius;
 	public bool detectedPlayer = false;
 
 	protected override void Start () {
@@ -16,7 +16,8 @@ public class EnemyUnit : Unit {
 		health = 1;
 	    movement = 1;
 		attackVal = 2;
-		attackRange = movement + 1;
+		aggroRadius = movement + 1;
+		attackRange = 1;
 		isDead = false;
 		
 		defenseVal = 2;

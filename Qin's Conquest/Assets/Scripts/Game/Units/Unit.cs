@@ -9,6 +9,7 @@ public class Unit : MonoBehaviour, ISelectable, IDamageable<int>, IMoveable<Game
 	public bool selected;
 
 	public bool alreadyMoved;
+	public bool hasAttacked;
 	public bool isDead;
 
 	public int movement;
@@ -35,6 +36,7 @@ public class Unit : MonoBehaviour, ISelectable, IDamageable<int>, IMoveable<Game
 		attackVal = 2;
 
 		alreadyMoved = false;
+		hasAttacked = false;
 		isDead = false;
 
 		defenseVal = 2;
@@ -51,12 +53,14 @@ public class Unit : MonoBehaviour, ISelectable, IDamageable<int>, IMoveable<Game
 	}
 	
 	public virtual void move(GameObject moveTo) {
+		onTile.GetComponent<HexTile> ().cancelMovement (movement);
 	}
 	
 	public virtual void attack(GameObject obj) {
-				((IDamageable<int>)obj.GetComponent (typeof(IDamageable<int>))).takeDamage (attackVal);
-				alreadyMoved = true;
-		}
+		((IDamageable<int>)obj.GetComponent (typeof(IDamageable<int>))).takeDamage (attackVal);
+		hasAttacked = true;
+		onTile.GetComponent<HexTile> ().cancelAttack (attackRange);
+	}
 
 	public virtual void specialAttack(GameObject[] obj) {
 	}
@@ -66,7 +70,7 @@ public class Unit : MonoBehaviour, ISelectable, IDamageable<int>, IMoveable<Game
 		while(dmg > 0){
 			if(defenseVal > 0){
 				--defenseVal;
-			}else{
+			} else{
 				--health;
 			}
 			--dmg;

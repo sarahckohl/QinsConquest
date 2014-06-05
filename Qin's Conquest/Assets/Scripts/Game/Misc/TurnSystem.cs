@@ -76,11 +76,11 @@ public class TurnSystem : MonoBehaviour {
 				EnemyTargetModule.foundTarget = false;
 				EnemyTargetModule.targetID = -1;
 				EnemyTargetModule.stopID = -1;
-				enemy.onTile.GetComponent <HexTile>().getAttackRangeEnemy(enemy.attackRange);
+				enemy.onTile.GetComponent <HexTile>().getAttackRangeEnemy(enemy.aggroRadius);
 				if(EnemyTargetModule.stopID >= 0) {
 					enemy.move (gameField.map[EnemyTargetModule.stopID]);
 				} else {
-					enemy.onTile.GetComponent<HexTile>().cancelMovement (enemy.attackRange);
+					enemy.onTile.GetComponent<HexTile>().cancelMovement (enemy.aggroRadius);
 				}
 				}
 			}
@@ -88,6 +88,7 @@ public class TurnSystem : MonoBehaviour {
 			//Theoretically, the following should run only after the enemy units have already moved
 			foreach (PlayerUnit player in playerUnits) {
 				player.alreadyMoved = false;
+				player.hasAttacked = false;
 				player.renderer.material.color = player.originalColor;
 			}
 	}
