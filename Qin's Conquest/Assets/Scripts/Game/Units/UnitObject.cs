@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class EditorUnitObject : MonoBehaviour {
+public class UnitObject : MonoBehaviour {
 	
-	public string unitName = "";
+	public GameObject unit;
 	public Vector3 targetTilePos;
 	
 	private Vector3 initMPos;
@@ -31,45 +31,38 @@ public class EditorUnitObject : MonoBehaviour {
 					dist = Mathf.Sqrt(Mathf.Pow(collidingTiles[targetTile].transform.position.x - transform.position.x, 2) + Mathf.Pow(collidingTiles[targetTile].transform.position.y - transform.position.y, 2));
 					if (tempDist <= dist) {
 						dist = tempDist;
-						collidingTiles[targetTile].GetComponent<EditorHexBase>().unHighlight();
+						collidingTiles[targetTile].GetComponent<Deployment>().unHighlight();
 						targetTile = x;
-						collidingTiles[targetTile].GetComponent<EditorHexBase>().highlight();
+						collidingTiles[targetTile].GetComponent<Deployment>().highlight();
 					} 
 				} else {
 					dist = tempDist;
 					targetTile = x;
-					collidingTiles[targetTile].GetComponent<EditorHexBase>().highlight();
+					collidingTiles[targetTile].GetComponent<Deployment>().highlight();
 				}
-			}
-		} else {
-			if (collidingTiles[targetTile].GetComponent<EditorHexBase>().HexTile.GetComponent<EditorTileObject>().tileName == "Hex Blank") {
-				collidingTiles[targetTile].GetComponent<EditorHexBase>().unitOnTile = null;
-				Destroy(gameObject);
 			}
 		}
 	}
 	
 	void OnTriggerEnter2D(Collider2D other) {
-		if (other.tag == "Tile") {
-			if(!collidingTiles.Contains(other.gameObject) &&
-			   other.GetComponent<EditorHexBase>().HexTile.GetComponent<EditorTileObject>().tileName != "Hex Blank" &&
-			   other.GetComponent<EditorHexBase>().unitOnTile == null && other.GetComponent<EditorHexBase>().structureOnTile == null) {
+		if (other.tag == "UnitDeployment") {
+			if(!collidingTiles.Contains(other.gameObject) && other.GetComponent<Deployment>().deploymentUnit == null) {
 				collidingTiles.Add (other.gameObject);
 			}
 		}
 	}
 	
 	void OnTriggerExit2D(Collider2D other) {
-		if (other.GetComponent<EditorHexBase>() != null) {
+		if (other.GetComponent<Deployment>() != null) {
 			collidingTiles.Remove(other.gameObject);
-			other.gameObject.GetComponent<EditorHexBase>().unHighlight();
+			other.gameObject.GetComponent<Deployment>().unHighlight();
 		}
 	}
 	
 	// This one is for when level a loaded into editor
 	void OnTriggerStay2D(Collider2D other) {
 		if (justSpawn) {
-			if (other.tag == "Tile") {
+			if (other.tag == "UnitDeployment") {
 				justSpawn = false;
 				set = true;
 				collidingTiles.Clear();
@@ -81,7 +74,8 @@ public class EditorUnitObject : MonoBehaviour {
 	
 	void OnMouseDown() {
 		if (set) {
-			collidingTiles[targetTile].GetComponent<EditorHexBase>().unitOnTile = null;
+			collidingTiles[targetTile].GetComponent<Deployment>().deploymentUnit = null;
+			collidingTiles[targetTile].GetComponent<Deployment>().unitObject = null;
 			set = false;
 		}
 	}
@@ -90,12 +84,13 @@ public class EditorUnitObject : MonoBehaviour {
 		if (collidingTiles.Count > targetTile) {
 			//collidingTiles[targetTile].GetComponent<EditorHexBase>().unHighlight();
 			foreach (GameObject colli in collidingTiles) {
-				colli.GetComponent<EditorHexBase>().unHighlight();
+				colli.GetComponent<Deployment>().unHighlight();
 			}
 			targetTilePos = collidingTiles[targetTile].transform.position;
 			targetTilePos.z = -0.5f;
 			transform.position = targetTilePos;
-			collidingTiles[targetTile].GetComponent<EditorHexBase>().unitOnTile = gameObject;
+			collidingTiles[targetTile].GetComponent<Deployment>().deploymentUnit = unit;
+			collidingTiles[targetTile].GetComponent<Deployment>().unitObject = gameObject;
 			set = true;
 			targetTile = 0;
 		} else {

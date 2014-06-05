@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FieldGUI : MonoBehaviour {
-	public TurnSystem system;
+public class StartMissonButton : MonoBehaviour {
+
 	private Animator animator;
+	public UnitDeployment deployer;
+	public GameObject endTurnButton;
 	
 	// Use this for initialization
 	void Start () {
@@ -20,6 +22,7 @@ public class FieldGUI : MonoBehaviour {
 	
 	void OnMouseUp() {
 		animator.SetBool("MouseOver", false);
-		system.turnEnd = true;
+		deployer.deploy();
+		endTurnButton.SetActive(true);
 	}
 }
