@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class EnemyUnit : Unit {
 	public int aggroRadius;
 	public bool detectedPlayer = false;
+	public List<EnemyTargetModule> potentialTargets = new List<EnemyTargetModule>();
 
 	protected override void Start () {
 		base.Start ();

@@ -14,7 +14,7 @@ public class Cavalry : PlayerUnit {
 	}
 	
 	public override void setInitialUnitValues() {
-		health = 1;
+		health = 3;
 		movement = 4;
 		attackRange = 1;
 		attackVal = 3;

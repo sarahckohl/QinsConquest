@@ -14,7 +14,7 @@ public class Infantry : PlayerUnit{
 	}
 	
 	public override void setInitialUnitValues() {
-		health = 1;
+		health = 2;
 		movement = 2;
 		attackRange = 1;
 		attackVal = 2;

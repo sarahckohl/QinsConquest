@@ -193,8 +193,8 @@ public class HexTile : MonoBehaviour {
 	}
 	
 	//Enemy unit function. Should not use for Players
-	public void getAttackRangeEnemy(int step) {
-		if (!EnemyTargetModule.foundTarget) {
+	public void getAttackRangeEnemy(EnemyUnit e, int step) {
+
 			
 			if (step > 0) {
 				HexTile temp;
@@ -206,27 +206,28 @@ public class HexTile : MonoBehaviour {
 						continue;
 					temp = field.map [nei].GetComponent<HexTile> ();
 					if (!temp.taken) {
-						temp.switchNeighborsOnEnemy (step);
+						temp.switchNeighborsOnEnemy (e, step);
 					} else if (temp.name != "Hex Blank" && temp.takenBy.tag == "Player") {
 						// temp.enemyOnTile (); This was removes, think of something else for it if needed
-						EnemyTargetModule.target = temp.takenBy;
-						EnemyTargetModule.targetID = temp.iD;
-						EnemyTargetModule.stopID = iD;
-						EnemyTargetModule.foundTarget = true;
+						EnemyTargetModule ETM = new EnemyTargetModule();
+						ETM.target = temp.takenBy;
+
+						ETM.targetID = temp.iD;
+						ETM.stopID = iD;
+						e.potentialTargets.Add (ETM);
+						e.detectedPlayer = true;
 					}
 				}
 			}
-		}
+
 	}
 	
 	//EnemyUnit function. Should not use for Players
-	protected virtual void switchNeighborsOnEnemy(int step) {
-		if (!EnemyTargetModule.foundTarget) {
-			
+	protected virtual void switchNeighborsOnEnemy(EnemyUnit e, int step) {
+
 			inRange = true;
 			step -= moveDecrement;
-			
-			// GetComponent<SpriteRenderer> ().color = Color.yellow;
+		
 			
 			if (step > 0) {
 				HexTile temp;
@@ -237,16 +238,20 @@ public class HexTile : MonoBehaviour {
 						continue;
 					temp = field.map [nei].GetComponent<HexTile> ();
 					if (!temp.taken) {
-						temp.switchNeighborsOnEnemy (step);
+						temp.switchNeighborsOnEnemy (e, step);
 					} else if (temp.takenBy.tag == "Player") {
 						// temp.enemyOnTile (); This was removes, think of something else for it if needed
-						EnemyTargetModule.targetID = temp.iD;
-						EnemyTargetModule.stopID = iD;
-						EnemyTargetModule.foundTarget = true;
+						EnemyTargetModule ETM = new EnemyTargetModule();
+						ETM.target = temp.takenBy;
+
+						ETM.targetID = temp.iD;
+						ETM.stopID = iD;
+						e.potentialTargets.Add (ETM);
+						e.detectedPlayer = true;
 					}
 				}
 			}
-		}
+
 		
 	}
 	

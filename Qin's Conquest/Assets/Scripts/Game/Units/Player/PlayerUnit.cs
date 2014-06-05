@@ -66,4 +66,11 @@ public class PlayerUnit : Unit {
 		if (alreadyMoved && hasAttacked)
 			renderer.material.color = Color.gray;
 	}
+
+	public override void onDeath() {
+		isDead = true;
+		Destroy(gameObject);
+		onTile.GetComponent<HexTile>().moveOff();
+		TurnSystem.remainingPlayers--;
+	}
 }
