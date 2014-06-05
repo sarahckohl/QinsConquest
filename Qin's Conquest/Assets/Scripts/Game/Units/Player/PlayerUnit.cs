@@ -23,6 +23,7 @@ public class PlayerUnit : Unit {
 		attackVal = 2;
 		
 		alreadyMoved = false;
+		hasAttacked = false;
 		isDead = false;
 		
 		defenseVal = 2;
@@ -32,24 +33,37 @@ public class PlayerUnit : Unit {
 	public override void select() {
 		base.select ();
 		if (!alreadyMoved) {
-			onTile.GetComponent<HexTile> ().getMovementByRange (movement, attackRange);
+			onTile.GetComponent<HexTile> ().getMovementByRange (movement);
+		}
+		if (!hasAttacked) {
+			onTile.GetComponent<HexTile> ().getAtkByRange (attackRange);
 		}
 	}
 	
 	public override void deSelect() {
 		base.deSelect();
-		onTile.GetComponent<HexTile> ().cancelMovement (movement);
+		if (!alreadyMoved) onTile.GetComponent<HexTile> ().cancelMovement (movement);
+		if (!hasAttacked) onTile.GetComponent<HexTile> ().cancelAttack(attackRange);
+	}
+	
+	public override void attack (GameObject obj) {
+		base.attack (obj);
+		if (alreadyMoved && hasAttacked)
+			renderer.material.color = Color.gray;
 	}
 	
 	public override void move(GameObject moveTo) {
 		base.move (moveTo);
 		onTile.GetComponent<HexTile>().cancelMovement(movement);
+		if (!hasAttacked) onTile.GetComponent<HexTile> ().cancelAttack(attackRange);
 		onTile.GetComponent<HexTile>().moveOff ();
 		transform.position = moveTo.transform.position + new Vector3(0.0f, 0.0f, transform.position.z);
 		onTile = moveTo;
 		onTile.GetComponent<HexTile>().moveOn (gameObject);
 		
 		alreadyMoved = true;
-		renderer.material.color = Color.gray;
+		
+		if (alreadyMoved && hasAttacked)
+			renderer.material.color = Color.gray;
 	}
 }
