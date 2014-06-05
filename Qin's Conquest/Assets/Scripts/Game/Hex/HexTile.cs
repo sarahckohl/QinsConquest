@@ -209,6 +209,7 @@ public class HexTile : MonoBehaviour {
 						temp.switchNeighborsOnEnemy (step);
 					} else if (temp.name != "Hex Blank" && temp.takenBy.tag == "Player") {
 						// temp.enemyOnTile (); This was removes, think of something else for it if needed
+						EnemyTargetModule.target = temp.takenBy;
 						EnemyTargetModule.targetID = temp.iD;
 						EnemyTargetModule.stopID = iD;
 						EnemyTargetModule.foundTarget = true;

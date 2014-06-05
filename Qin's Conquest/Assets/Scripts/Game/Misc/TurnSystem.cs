@@ -72,6 +72,10 @@ public class TurnSystem : MonoBehaviour {
 
 			//Enemy Movement goes here
 			foreach(EnemyUnit enemy in enemyUnits) {
+				if(enemy is EnemyArcher) {
+					Debug.Log ("We have an Archer here!");
+				}
+
 				if(!enemy.isDead) {
 				EnemyTargetModule.foundTarget = false;
 				EnemyTargetModule.targetID = -1;
