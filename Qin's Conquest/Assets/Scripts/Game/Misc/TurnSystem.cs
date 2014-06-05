@@ -35,7 +35,7 @@ public class TurnSystem : MonoBehaviour {
 
 		if (totalBases >= bases.Count) {
 			//Game Level ends here
-			Debug.Log ("All bases have been destroyed");
+			//Debug.Log ("All bases have been destroyed");
 			}
 
 		if (turnEnd) {
