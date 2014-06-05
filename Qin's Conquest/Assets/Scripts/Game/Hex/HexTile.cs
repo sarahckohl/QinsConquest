@@ -14,22 +14,24 @@ public class HexTile : MonoBehaviour {
 	static int[,] DIRS = new int[3,4]{ {-1,-1,-1,-1},{ -1,3, 4,2 }, {-1,5,1,0} }; 
 	//static int[,] DIRS = new int[3,4]{ {1,1,1,1},{ 1,3, 4,2 }, {1,5,1,0} }; 
 
+	public SpriteRenderer movementHighlight;
+	public SpriteRenderer attackHighlight;
 
+	//public GameObject movementHighlight;
+	//public GameObject attackhHighlight;
+	private GameObject mHighlight;
+	private GameObject aHighlight;
 
 
 	// public List<GameObject> neighbors = new List<GameObject>();
 	public List<int> neighbors = new List<int>();
 	
 	public bool inRange = false;
+	public bool inAtkRange = false;
 	public GameObject takenBy;
 	
 	public int moveDecrement = 1;
-	
-	protected Color originalColor;
-	
-	void Awake() {
-		originalColor = GetComponent<SpriteRenderer>().color;
-	}
+	public int atkDecrement = 1;
 	
 	public void moveOn(GameObject byObject) {
 		taken = true;
@@ -41,17 +43,18 @@ public class HexTile : MonoBehaviour {
 		takenBy = null;
 	}
 	
-	public void getMovementByRange(int step) {
+	public void getMovementByRange(int step, int atkStep) {
 		if (step > 0) {
 			HexTile temp;
 			
 			foreach (int nei in neighbors) {
 				if (nei == -1) continue;
 				if (field.map[nei].GetComponent<BlankTile>() != null) continue;
+				
 				temp = field.map[nei].GetComponent<HexTile>();
 				if (!temp.taken) {
-					temp.switchNeighborsOn(step);
-				} else if (temp.name != "Hex Blank" && temp.takenBy.tag != "Player") {
+					temp.switchNeighborsOn(step, atkStep);
+				} else if (temp.name != "Hex Blank" && temp.takenBy.tag != "Player" && atkStep > 0) {
 					temp.enemyOnTile();
 				}
 			}
@@ -86,6 +89,92 @@ public class HexTile : MonoBehaviour {
 	}
 	
 	public void cancelMovement(int step) {
+		if (step > 0) {
+			foreach (int nei in neighbors) {
+				if (nei == -1) continue;
+				if (field.map[nei].GetComponent<BlankTile>() != null) continue;
+				field.map[nei].GetComponent<HexTile>().switchNeighborsOff(step);
+			}
+		}
+	}
+	
+	protected virtual void enemyOnTile() {
+		inRange = true;
+		inAtkRange = true;
+		attackHighlight.enabled = true;
+		// GetComponent<SpriteRenderer>().color = Color.red;
+	}
+	
+	protected virtual void switchNeighborsOn(int step, int atkStep) {
+		inRange = true;
+		inAtkRange = true;
+		step -= moveDecrement;
+		
+		movementHighlight.enabled = true;
+		                          
+		if (atkStep > 0) {
+			attackHighlight.enabled = true;
+		}
+		atkStep -= atkDecrement;
+		// GetComponent<SpriteRenderer>().color = Color.yellow;
+		
+		if (step > 0) {
+			HexTile temp;
+			
+			foreach (int nei in neighbors) {
+				if (nei == -1) continue;
+				if (field.map[nei].GetComponent<BlankTile>() != null) continue;
+				
+				temp = field.map[nei].GetComponent<HexTile>();
+				if (!temp.taken) {
+					temp.switchNeighborsOn(step, atkStep);
+				} else if (temp.takenBy.tag != "Player" && atkStep > 0) {
+					temp.enemyOnTile();
+				}
+			}
+		}
+	}
+	
+	//EnemyUnit function. Should not use for Players
+	protected virtual void switchNeighborsOnEnemy(int step) {
+		if (!EnemyTargetModule.foundTarget) {
+			
+			inRange = true;
+			step -= moveDecrement;
+			
+			// GetComponent<SpriteRenderer> ().color = Color.yellow;
+			
+			if (step > 0) {
+				HexTile temp;
+				foreach (int nei in neighbors) {
+					if (nei == -1)
+						continue;
+					if (field.map [nei].GetComponent<BlankTile> () != null)
+						continue;
+					temp = field.map [nei].GetComponent<HexTile> ();
+					if (!temp.taken) {
+						temp.switchNeighborsOnEnemy (step);
+					} else if (temp.takenBy.tag == "Player") {
+						temp.enemyOnTile ();
+						EnemyTargetModule.targetID = temp.iD;
+						EnemyTargetModule.stopID = iD;
+						EnemyTargetModule.foundTarget = true;
+					}
+				}
+			}
+		}
+		
+	}
+	
+	protected virtual void switchNeighborsOff(int step) {
+		inRange = false;
+		inAtkRange = false;
+		step -= moveDecrement;
+		
+		movementHighlight.enabled = false;
+		attackHighlight.enabled = false;
+		
+		//GetComponent<SpriteRenderer>().color = originalColor;
 		if (step > 0) {
 			foreach (int nei in neighbors) {
 				if (nei == -1) continue;
@@ -267,78 +356,5 @@ public class HexTile : MonoBehaviour {
 
 
 
-		}
-	
-	protected virtual void enemyOnTile() {
-		inRange = true;
-		GetComponent<SpriteRenderer>().color = Color.red;
-	}
-	
-	protected virtual void switchNeighborsOn(int step) {
-		inRange = true;
-		step -= moveDecrement;
-		
-		GetComponent<SpriteRenderer>().color = Color.yellow;
-		
-		if (step > 0) {
-			HexTile temp;
-			
-			foreach (int nei in neighbors) {
-				if (nei == -1) continue;
-				if (field.map[nei].GetComponent<BlankTile>() != null) continue;
-				temp = field.map[nei].GetComponent<HexTile>();
-				if (!temp.taken) {
-					temp.switchNeighborsOn(step);
-				} else if (temp.takenBy.tag != "Player") {
-					temp.enemyOnTile();
-
-				}
-			}
-		}
-	}
-
-	//EnemyUnit function. Should not use for Players
-	protected virtual void switchNeighborsOnEnemy(int step) {
-		if (!EnemyTargetModule.foundTarget) {
-
-			inRange = true;
-			step -= moveDecrement;
-		
-			GetComponent<SpriteRenderer> ().color = Color.yellow;
-		
-			if (step > 0) {
-				HexTile temp;
-				foreach (int nei in neighbors) {
-					if (nei == -1)
-						continue;
-						if (field.map [nei].GetComponent<BlankTile> () != null)
-							continue;
-						temp = field.map [nei].GetComponent<HexTile> ();
-						if (!temp.taken) {
-							temp.switchNeighborsOnEnemy (step);
-							} else if (temp.takenBy.tag == "Player") {
-							temp.enemyOnTile ();
-							EnemyTargetModule.targetID = temp.iD;
-							EnemyTargetModule.stopID = iD;
-							EnemyTargetModule.foundTarget = true;
-						}
-				}
-			}
-		}
-
-	}
-	
-	protected virtual void switchNeighborsOff(int step) {
-		inRange = false;
-		step -= moveDecrement;
-		
-		GetComponent<SpriteRenderer>().color = originalColor;
-		if (step > 0) {
-			foreach (int nei in neighbors) {
-				if (nei == -1) continue;
-				if (field.map[nei].GetComponent<BlankTile>() != null) continue;
-				field.map[nei].GetComponent<HexTile>().switchNeighborsOff(step);
-			}
-		}
 	}
 }

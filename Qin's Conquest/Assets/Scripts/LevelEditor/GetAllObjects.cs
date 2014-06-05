@@ -125,8 +125,8 @@ public class GetAllObjects : MonoBehaviour {
 			if ((e.type == EventType.MouseDown) && rect.Contains (Event.current.mousePosition)){
 				GameObject temp = Instantiate (unitObject, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity) as GameObject;
 				temp.transform.position = new Vector3(temp.transform.position.x, temp.transform.position.y, -0.5f);
-				temp.GetComponent<SpriteRenderer>().sprite = units[x].GetComponent<SpriteRenderer>().sprite;
-				temp.GetComponent<EditorUnitObject>().unitName = units[x].name;
+				temp.GetComponent<SpriteRenderer>().sprite = playerUnits[x].GetComponent<SpriteRenderer>().sprite;
+				temp.GetComponent<EditorUnitObject>().unitName = playerUnits[x].name;
 			}
 		}
 	}
