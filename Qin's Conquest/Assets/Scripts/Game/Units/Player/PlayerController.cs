@@ -40,12 +40,11 @@ public class PlayerController : MonoBehaviour {
 				}
 			}
 		} else if (clickedObject.GetComponent<EnemyUnit>() != null) {
-		// Change inrange with in attackrange instead later on		
-			if (clickedObject.GetComponent<EnemyUnit>().onTile.GetComponent<HexTile>().inRange) {
+			if (clickedObject.GetComponent<EnemyUnit>().onTile.GetComponent<HexTile>().inAtkRange) {
 				selectedUnit.GetComponent<PlayerUnit>().attack (clickedObject);
 			}
 		} else if (clickedObject.GetComponent<Structure>() != null) {
-			if (clickedObject.GetComponent<Structure>().onTile.GetComponent<HexTile>().inRange) {
+			if (clickedObject.GetComponent<Structure>().onTile.GetComponent<HexTile>().inAtkRange) {
 				selectedUnit.GetComponent<PlayerUnit>().attack (clickedObject);
 			}
 		}

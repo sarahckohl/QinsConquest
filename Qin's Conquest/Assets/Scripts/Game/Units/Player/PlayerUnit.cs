@@ -32,7 +32,7 @@ public class PlayerUnit : Unit {
 	public override void select() {
 		base.select ();
 		if (!alreadyMoved) {
-			onTile.GetComponent<HexTile> ().getMovementByRange (movement);
+			onTile.GetComponent<HexTile> ().getMovementByRange (movement, attackRange);
 		}
 	}
 	

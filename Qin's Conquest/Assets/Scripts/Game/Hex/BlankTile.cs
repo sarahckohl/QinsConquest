@@ -12,7 +12,7 @@ public class BlankTile : HexTile {
 	}
 	
 	// Blank squares do nothing
-	protected override void switchNeighborsOn(int step) {
+	protected override void switchNeighborsOn(int step, int atkStep) {
 
 	}
 	
