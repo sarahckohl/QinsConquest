@@ -12,9 +12,21 @@ public class Button : MonoBehaviour {
 	// public Texture2D buttonSprite;
 	public string buttonText;
 
+	public Transform target;
+
 	void Awake(){
-		xposition = gameObject.transform.position.x *300;
-		yposition = gameObject.transform.position.y *300;
+		
+
+		//target.position = gameObject.transform.position;
+
+		Vector3 screenpos = Camera.main.WorldToScreenPoint (gameObject.transform.position);
+		
+		xposition = screenpos.x;
+		yposition = Screen.height - screenpos.y;
+
+
+		//xposition = gameObject.transform.position.x *300;
+		//yposition = gameObject.transform.position.y *300;
 		buttonText = gameObject.name;
 	
 	}
