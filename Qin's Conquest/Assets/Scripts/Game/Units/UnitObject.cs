@@ -9,8 +9,8 @@ public class UnitObject : MonoBehaviour {
 	
 	private Vector3 initMPos;
 	
-	private List<GameObject> collidingTiles = new List<GameObject>();
-	private int targetTile;
+	public List<GameObject> collidingTiles = new List<GameObject>();
+	public int targetTile;
 	private float tempDist, dist;
 	
 	private bool set = false;
@@ -87,7 +87,7 @@ public class UnitObject : MonoBehaviour {
 				colli.GetComponent<Deployment>().unHighlight();
 			}
 			targetTilePos = collidingTiles[targetTile].transform.position;
-			targetTilePos.z = -0.5f;
+			targetTilePos.z = -0.6f;
 			transform.position = targetTilePos;
 			collidingTiles[targetTile].GetComponent<Deployment>().deploymentUnit = unit;
 			collidingTiles[targetTile].GetComponent<Deployment>().unitObject = gameObject;
