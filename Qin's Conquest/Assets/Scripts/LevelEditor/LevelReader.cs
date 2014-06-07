@@ -24,6 +24,7 @@ public class LevelReader : MonoBehaviour {
 		units.AddRange(Resources.LoadAll<GameObject>("Prefabs/Game/Units"));
 		structures.AddRange(Resources.LoadAll<GameObject>("Prefabs/Game/Structures"));
 	
+		fileName = GameState.level;
 		createDictionary();
 		readFile();
 	}
