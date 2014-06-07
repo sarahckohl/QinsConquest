@@ -16,10 +16,10 @@ public class EnemyCavalry : EnemyUnit{
 	public override void setInitialUnitValues() {
 		health = 1;
 		movement = 4;
-		attackVal = 3;
+		attackVal = 3 + onTile.GetComponent<HexTile> ().buff("atk");
 		aggroRadius = movement + 1;
 		attackRange = 1;
-		defenseVal = 1;
+		defenseVal = 1 + onTile.GetComponent<HexTile> ().buff("def");
 		unitCost = 3;
 	}
 	
