@@ -17,8 +17,8 @@ public class Cavalry : PlayerUnit {
 		health = 3;
 		movement = 4;
 		attackRange = 1;
-		attackVal = 3;
-		defenseVal = 1;
+		attackVal = 3 + onTile.GetComponent<HexTile> ().buff("atk");
+		defenseVal = 1 + onTile.GetComponent<HexTile> ().buff("def");
 		unitCost = 3;
 	}
 	

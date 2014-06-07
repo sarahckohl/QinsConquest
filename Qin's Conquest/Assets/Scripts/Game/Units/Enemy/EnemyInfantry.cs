@@ -16,10 +16,10 @@ public class EnemyInfantry : EnemyUnit{
 	public override void setInitialUnitValues() {
 		health = 1;
 		movement = 2;
-		attackVal = 2;
+		attackVal = 2 + onTile.GetComponent<HexTile> ().buff("atk");
 		aggroRadius = movement + 1;
 		attackRange = 1;
-		defenseVal = 2;
+		defenseVal = 2 + onTile.GetComponent<HexTile> ().buff("def");
 		unitCost = 1;
 	}
 	

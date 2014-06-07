@@ -17,8 +17,8 @@ public class Archer : PlayerUnit {
 		health = 1;
 		movement = 2;
 		attackRange = 3;
-		attackVal = 1;
-		defenseVal = 3;
+		attackVal = 1 + onTile.GetComponent<HexTile> ().buff("atk");
+		defenseVal = 3 + onTile.GetComponent<HexTile> ().buff("def");
 		unitCost = 1;
 	}
 	
