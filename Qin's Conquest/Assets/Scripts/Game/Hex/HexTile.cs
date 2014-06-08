@@ -208,6 +208,19 @@ public class HexTile : MonoBehaviour {
 			}
 		}
 	}
+
+	//EnemyOnly Function
+	public int moveEnemyArcherExtra(EnemyTargetModule m) {
+		
+		int returnIndex = -1;
+		for(int index = 0; index < neighbors.Count; index++) {
+			if(neighbors[index] == m.targetID) {
+				returnIndex = (index + 3) % 6;
+				return neighbors[returnIndex];
+			}
+		}
+		return returnIndex;
+	}
 	
 	//Enemy unit function. Should not use for Players
 	public void getAttackRangeEnemy(EnemyUnit e, int step) {
