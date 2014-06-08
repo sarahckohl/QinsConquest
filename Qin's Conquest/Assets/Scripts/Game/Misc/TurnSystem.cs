@@ -51,6 +51,16 @@ public class TurnSystem : MonoBehaviour {
 
 						if(finalTarget.stopID >= 0) {
 							enemy.move (gameField.map[finalTarget.stopID]);
+							if(enemy is EnemyArcher) {
+								//move again if enemy unit is an Archer
+								int moveAgain = enemy.onTile.GetComponent<HexTile>().moveEnemyArcherExtra(finalTarget);
+								if(moveAgain >= 0) {
+									//move again
+									enemy.move (gameField.map[moveAgain]);
+								} else {
+									Debug.Log ("Don't move again.");
+								}
+							}
 							enemy.attack (finalTarget.target);
 						} else {
 							enemy.onTile.GetComponent<HexTile>().cancelMovement (enemy.aggroRadius);
