@@ -41,6 +41,7 @@ public class LevelSelectButtons : MonoBehaviour {
 		if(!CameraFade.fading && !conquered) {
 			rend.sprite = original;
 			GameState.level = level;
+			audio.Play ();
 			CameraFade.StartAlphaFade( Color.black, false, 2f, 0.0f, loadLevelOnComplete);
 		}
 	}

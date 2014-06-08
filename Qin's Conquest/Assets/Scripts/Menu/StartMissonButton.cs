@@ -14,14 +14,17 @@ public class StartMissonButton : MonoBehaviour {
 	
 	void OnMouseOver() {
 		animator.SetBool("MouseOver", true);
+		audio.Play ();
 	}
 	
 	void OnMouseExit() {
 		animator.SetBool("MouseOver", false);
+		audio.Play ();
 	}
 	
 	void OnMouseUp() {
 		animator.SetBool("MouseOver", false);
+		audio.Play ();
 		deployer.deploy();
 		endTurnButton.SetActive(true);
 	}
