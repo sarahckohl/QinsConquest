@@ -14,6 +14,5 @@ public class TestStruct : Structure {
 	
 	public override void onDeath() {
 		base.onDeath();
-		Debug.Log ("Wat");
 	}
 }

@@ -25,11 +25,9 @@ public class EnemyInfantry : EnemyUnit{
 	
 	public override void attack(GameObject target) {
 		base.attack(target);
-		Debug.Log ("Attack!");
 	}
 	
 	public override void onDeath() {
 		base.onDeath();
-		Debug.Log ("This is impossible!!");
 	}
 }

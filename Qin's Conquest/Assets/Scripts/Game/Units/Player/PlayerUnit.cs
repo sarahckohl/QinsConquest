@@ -4,11 +4,14 @@ using System.Collections;
 public class PlayerUnit : Unit {
 
 	public Color originalColor;
+	private TurnSystem system;
 
 	// Use this for initialization
 	protected override void Start () {
 		base.Start ();
+		system = GameObject.FindGameObjectWithTag("System").GetComponent<TurnSystem>();
 		originalColor = renderer.material.color;
+		system.totalPlayerUnits++;
 	}
 	
 	// Update is called once per frame
@@ -71,6 +74,6 @@ public class PlayerUnit : Unit {
 		isDead = true;
 		Destroy(gameObject);
 		onTile.GetComponent<HexTile>().moveOff();
-		TurnSystem.remainingPlayers--;
+		system.totalPlayerUnits--;
 	}
 }

@@ -15,16 +15,11 @@ public class LevelSelectButtons : MonoBehaviour {
 	
 	void Start() {
 		rend = GetComponent<SpriteRenderer>();
+		conquered = GameState.stateDictionary[level];
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(level == "Chu" && GameState.chuConquered) {conquered = true;}
-		if(level == "Han" && GameState.hanConquered) {conquered = true;}
-		if(level == "Qi" && GameState.qiConquered) {conquered = true;}
-		if(level == "Wei" && GameState.weiConquered) {conquered = true;}
-		if(level == "Yan" && GameState.yanConquered) {conquered = true;}
-		if(level == "Zhao" && GameState.zhaoConquered) {conquered = true;}
 		if (rend.sprite != takenOver && conquered) {
 			rend.sprite = takenOver;
 		}
@@ -46,12 +41,11 @@ public class LevelSelectButtons : MonoBehaviour {
 		if(!CameraFade.fading && !conquered) {
 			rend.sprite = original;
 			GameState.level = level;
-			Application.LoadLevel (2);
-			// CameraFade.StartAlphaFade( Color.black, false, 2f, 0.0f, loadLevelOnComplete);
+			CameraFade.StartAlphaFade( Color.black, false, 2f, 0.0f, loadLevelOnComplete);
 		}
 	}
 	
 	void loadLevelOnComplete() {
-		Application.LoadLevel (level);
+		Application.LoadLevel (2);
 	}
 }

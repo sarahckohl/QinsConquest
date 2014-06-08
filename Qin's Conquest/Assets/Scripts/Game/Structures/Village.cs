@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class Village : Structure {
@@ -9,12 +9,6 @@ public class Village : Structure {
 	}
 
 	public override void setInitialStructureValues() {
-		health = 10;
-	}
-
-	public override void onDeath() {
-		Destroy(gameObject);
-		onTile.GetComponent<HexTile>().moveOff();
-		TurnSystem.totalBases--;
+		health = 2;
 	}
 }
