@@ -1,23 +1,32 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 public class TurnSystem : MonoBehaviour {
 
 	public Field gameField;
+	public LevelReader reader;
 	public List<PlayerUnit> playerUnits = new List<PlayerUnit>();
 	public List<EnemyUnit> enemyUnits = new List<EnemyUnit>();
 	public List<Village> bases = new List<Village> ();
 	public static int totalBases;
 	public int turnCount;
 	public bool turnEnd;
+	public bool levelEnd;
 	public static int remainingPlayers;
 
 	// Use this for initialization
 	void Start () {
 		turnCount = 1; //First Turn
 		turnEnd = false;
-		totalBases = 0;
+		levelEnd = false;
+		if(GameState.level == "Han" || GameState.level == "Zhao"){
+			totalBases = 2;
+		}else if(GameState.level == "Qi" || GameState.level == "Wei" || GameState.level == "Yan"){
+			totalBases = 3;
+		}else if(GameState.level == "Chu"){
+			totalBases = 4;
+		}
 		remainingPlayers = playerUnits.Count;
 	}
 	
@@ -34,8 +43,9 @@ public class TurnSystem : MonoBehaviour {
 		}
 		*/
 
-		if (totalBases >= bases.Count) {
+		if (totalBases <= 0) {
 			//Game Level ends here
+			levelEnd = true;
 			//Debug.Log ("All bases have been destroyed");
 			}
 

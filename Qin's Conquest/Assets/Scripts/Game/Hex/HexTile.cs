@@ -32,6 +32,23 @@ public class HexTile : MonoBehaviour {
 	
 	public int moveDecrement = 1;
 	public int atkDecrement = 1;
+
+	public int atkBuff = 0;
+	public int atkDebuff = 0;
+	public int defBuff = 0;
+	public int defDebuff = 0;
+
+	public int buff(string type){
+		if(type == "atk"){
+			if(atkBuff > 0){return atkBuff;}
+			if(atkDebuff > 0){return -(atkDebuff);}
+			return 0;
+		}else if(type == "def"){
+			if(defBuff > 0){return defBuff;}
+			if(defDebuff > 0){return -(defDebuff);}
+			return 0;
+		}else return 0;
+	}
 	
 	public void moveOn(GameObject byObject) {
 		taken = true;

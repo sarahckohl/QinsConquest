@@ -17,8 +17,8 @@ public class Infantry : PlayerUnit{
 		health = 2;
 		movement = 2;
 		attackRange = 1;
-		attackVal = 2;
-		defenseVal = 2;
+		attackVal = 2 + onTile.GetComponent<HexTile> ().buff("atk");
+		defenseVal = 2 + onTile.GetComponent<HexTile> ().buff("def");
 		unitCost = 1;
 	}
 	
