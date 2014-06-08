@@ -57,6 +57,7 @@ public class Unit : MonoBehaviour, ISelectable, IDamageable<int>, IMoveable<Game
 	}
 	
 	public virtual void attack(GameObject obj) {
+		audio.Play ();
 		((IDamageable<int>)obj.GetComponent (typeof(IDamageable<int>))).takeDamage (attackVal);
 		hasAttacked = true;
 		onTile.GetComponent<HexTile> ().cancelAttack (attackRange);

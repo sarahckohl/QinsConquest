@@ -11,20 +11,26 @@ public class ButtonAnimation : MonoBehaviour {
 		animator = this.GetComponent<Animator>();
 	}
 	
+	void Update() {
+	}
+	
 	void OnMouseOver() {
 		if(!CameraFade.fading) {
 			animator.SetBool("MouseOver", true);
+			audio.Play ();
 		}
 	}
 	
 	void OnMouseExit() {
 		if(!CameraFade.fading) {
 			animator.SetBool("MouseOver", false);
+			audio.Play ();
 		}
 	}
 	
 	void OnMouseUp() {
 		animator.SetBool("MouseOver", false);
+		audio.Play ();
 		if(!CameraFade.fading) {
 			CameraFade.StartAlphaFade( Color.black, false, 2f, 0.0f, loadLevelOnComplete);
 		}
