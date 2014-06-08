@@ -20,6 +20,9 @@ public class GameState : MonoBehaviour {
 			
 		if (!stateDictionary.ContainsKey("Chu"))
 			stateDictionary.Add("Chu", false);
+			
+		if (!stateDictionary.ContainsKey("Zhao"))
+			stateDictionary.Add("Zhao", false);
 	}
 	
 	// Update is called once per frame
