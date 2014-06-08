@@ -16,10 +16,10 @@ public class EnemyArcher : EnemyUnit{
 	public override void setInitialUnitValues() {
 		health = 1;
 		movement = 2;
-		attackVal = 1;
+		attackVal = 1 + onTile.GetComponent<HexTile> ().buff("atk");
 		attackRange = 1;
 		aggroRadius = movement + 2;
-		defenseVal = 3;
+		defenseVal = 3 + onTile.GetComponent<HexTile> ().buff("def");
 		unitCost = 1;
 	}
 	
