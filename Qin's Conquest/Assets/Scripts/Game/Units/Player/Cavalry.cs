@@ -24,11 +24,9 @@ public class Cavalry : PlayerUnit {
 	
 	public override void attack(GameObject target) {
 		base.attack(target);
-		Debug.Log ("Charge!");
 	}
 	
 	public override void onDeath() {
 		base.onDeath();
-		Debug.Log ("This is impossible!!");
 	}
 }

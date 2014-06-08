@@ -1,59 +1,27 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 public class TurnSystem : MonoBehaviour {
 
 	public Field gameField;
-	public LevelReader reader;
 	public List<PlayerUnit> playerUnits = new List<PlayerUnit>();
 	public List<EnemyUnit> enemyUnits = new List<EnemyUnit>();
 	public List<Village> bases = new List<Village> ();
-	public static int totalBases;
+	public int totalBases;
 	public int turnCount;
 	public bool turnEnd;
-	public bool levelEnd;
-	public static int remainingPlayers;
+	public int totalPlayerUnits;
 
 	// Use this for initialization
 	void Start () {
 		turnCount = 1; //First Turn
 		turnEnd = false;
-		levelEnd = false;
-		if(GameState.level == "Han" || GameState.level == "Zhao"){
-			totalBases = 2;
-		}else if(GameState.level == "Qi" || GameState.level == "Wei" || GameState.level == "Yan"){
-			totalBases = 3;
-		}else if(GameState.level == "Chu"){
-			totalBases = 4;
-		}
-		remainingPlayers = playerUnits.Count;
+		totalBases = bases.Count;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		//This was a check for Hex ID implementation
-		/*
-		if (!temp) {
-			foreach (GameObject h in gameField.map) {
-				int tempI = h.GetComponent<HexTile> ().iD;
-				Debug.Log (tempI);
-			}
-			temp = true;
-		}
-		*/
-
-		if (totalBases <= 0) {
-			//Game Level ends here
-			levelEnd = true;
-			//Debug.Log ("All bases have been destroyed");
-			}
-
-		if (remainingPlayers <= 0) {
-			//Game Over here
-			//Debug.Log ("Game Over");
-			}
-
 		if (turnEnd) {
 			turnCount += 1;
 			turnEnd = false;
@@ -94,7 +62,7 @@ public class TurnSystem : MonoBehaviour {
 				//empty the List of potentialTargets
 				enemy.potentialTargets.Clear ();
 			}
-
+			checkLose ();
 			//Theoretically, the following should run only after the enemy units have already moved
 			foreach (PlayerUnit player in playerUnits) {
 				if(!player.isDead) {
@@ -103,6 +71,19 @@ public class TurnSystem : MonoBehaviour {
 					player.renderer.material.color = player.originalColor;
 				}
 			}
+		}
 	}
-}
+	
+	public void checkWin() {
+		if (totalBases <= 0) {
+			GameState.stateDictionary[GameState.level] = true;
+			Application.LoadLevel(4);
+		}
+	}
+	
+	public void checkLose() {
+		if (totalPlayerUnits <= 0) {
+			Application.LoadLevel(3);
+		}
+	}
 }
