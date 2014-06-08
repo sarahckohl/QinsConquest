@@ -19,6 +19,12 @@ public class LevelSelectButtons : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(level == "Chu" && GameState.chuConquered) {conquered = true;}
+		if(level == "Han" && GameState.hanConquered) {conquered = true;}
+		if(level == "Qi" && GameState.qiConquered) {conquered = true;}
+		if(level == "Wei" && GameState.weiConquered) {conquered = true;}
+		if(level == "Yan" && GameState.yanConquered) {conquered = true;}
+		if(level == "Zhao" && GameState.zhaoConquered) {conquered = true;}
 		if (rend.sprite != takenOver && conquered) {
 			rend.sprite = takenOver;
 		}
