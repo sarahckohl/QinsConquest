@@ -12,7 +12,7 @@ public class StartMissonButton : MonoBehaviour {
 		animator = this.GetComponent<Animator>();
 	}
 	
-	void OnMouseOver() {
+	void OnMouseEnter() {
 		animator.SetBool("MouseOver", true);
 		audio.Play ();
 	}
@@ -24,7 +24,6 @@ public class StartMissonButton : MonoBehaviour {
 	
 	void OnMouseUp() {
 		animator.SetBool("MouseOver", false);
-		audio.Play ();
 		deployer.deploy();
 		endTurnButton.SetActive(true);
 	}
