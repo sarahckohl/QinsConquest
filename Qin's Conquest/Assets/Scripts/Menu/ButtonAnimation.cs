@@ -14,7 +14,7 @@ public class ButtonAnimation : MonoBehaviour {
 	void Update() {
 	}
 	
-	void OnMouseOver() {
+	void OnMouseEnter() {
 		if(!CameraFade.fading) {
 			animator.SetBool("MouseOver", true);
 			audio.Play ();
