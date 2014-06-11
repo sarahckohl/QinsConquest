@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
 	public GameObject selectedUnit;
+	public SelectionStats stats;
 	
 	// Use this for initialization
 	void Start () {
@@ -53,13 +54,15 @@ public class PlayerController : MonoBehaviour {
 	
 	void selectUnit(GameObject select) {
 		selectedUnit = select;
-		(selectedUnit.GetComponent(typeof(ISelectable)) as ISelectable).select ();		
+		(selectedUnit.GetComponent(typeof(ISelectable)) as ISelectable).select ();
+		stats.setSelection(select);
 	}
 	
 	void deSelectUnit() {
 		if (selectedUnit != null) {
 			(selectedUnit.GetComponent(typeof(ISelectable)) as ISelectable).deSelect ();
 			selectedUnit = null;
+			stats.deSelection();
 		}
 	}
 }

@@ -30,10 +30,14 @@ public class EnemyUnit : Unit {
 	
 	public override void select() {
 		base.select ();
+		onTile.GetComponent<HexTile> ().getMovementByRange (movement);
+		onTile.GetComponent<HexTile> ().getAtkByRange (attackRange);
 	}
 	
 	public override void deSelect() {
 		base.deSelect ();
+		onTile.GetComponent<HexTile> ().cancelMovement (movement);
+		onTile.GetComponent<HexTile> ().cancelAttack(attackRange);
 	}
 
 	//moveTo is a HexTile 
