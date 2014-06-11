@@ -11,9 +11,6 @@ public class ButtonAnimation : MonoBehaviour {
 		animator = this.GetComponent<Animator>();
 	}
 	
-	void Update() {
-	}
-	
 	void OnMouseEnter() {
 		if(!CameraFade.fading) {
 			animator.SetBool("MouseOver", true);
