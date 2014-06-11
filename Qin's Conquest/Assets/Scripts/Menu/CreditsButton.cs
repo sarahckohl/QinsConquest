@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StartMissonButton : MonoBehaviour {
+public class CreditsButton : MonoBehaviour {
+
+	public GameObject credits;
 
 	private Animator animator;
-	public UnitDeployment deployer;
 	
 	// Use this for initialization
 	void Start () {
@@ -23,6 +24,7 @@ public class StartMissonButton : MonoBehaviour {
 	
 	void OnMouseUp() {
 		animator.SetBool("MouseOver", false);
-		deployer.deploy();
+		credits.SetActive(true);
+		credits.GetComponent<Credits>().openUp();
 	}
 }
